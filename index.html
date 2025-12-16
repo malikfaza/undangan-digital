@@ -41,8 +41,7 @@
                         sans: ['"Nunito Sans"', 'sans-serif'],
                     },
                     backgroundImage: {
-                        // Pastikan file pattern-diamond.png ada di folder assets
-                        'soft-pattern': "url('assets/pattern-diamond.png')",
+                        'soft-pattern': "url('https://www.transparenttextures.com/patterns/diamond-upholstery.png')",
                     }
                 }
             }
@@ -73,7 +72,7 @@
             position: fixed;
             bottom: 24px;
             left: 24px;
-            z-index: 150; 
+            z-index: 50;
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(4px);
             border: 2px solid #D4AF37;
@@ -87,7 +86,6 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             cursor: pointer;
             transition: all 0.3s ease;
-            pointer-events: auto; 
         }
 
         /* Glassmorphism Card */
@@ -108,6 +106,12 @@
         ::-webkit-scrollbar-thumb {
             background: #D4AF37; 
             border-radius: 4px;
+        }
+        
+        /* Custom height for comment section */
+        .comments-scroll {
+            max-height: 400px;
+            overflow-y: auto;
         }
 
         /* Fade In Animation Keyframes for Main Content */
@@ -137,20 +141,20 @@
     <!-- ELEMENT CANVAS UNTUK ANIMASI BUNGA -->
     <canvas id="flower-canvas"></canvas>
 
-    <!-- Audio Background (LOKAL) -->
-    <!-- PERUBAHAN: Mengarah ke assets/music.mp3 -->
+    <!-- Audio Background -->
+    <!-- PERUBAHAN: Source diarahkan ke music.mp3 -->
     <audio id="bg-music" loop>
         <source src="music.mp3" type="audio/mp3">
         Browser Anda tidak mendukung elemen audio.
     </audio>
 
     <!-- Tombol Musik -->
-    <button id="music-toggle" class="music-btn">
+    <button id="music-toggle" class="music-btn hidden">
         <i class="fas fa-compact-disc spin-slow text-primary text-2xl"></i>
     </button>
 
     <!-- COVER / SAMPUL DEPAN (MODAL) -->
-    <section id="cover-modal" class="fixed inset-0 z-[100] bg-dark flex flex-col items-center justify-center text-center p-6 h-screen w-full transition-transform duration-1000 ease-in-out bg-cover bg-center" style="background-image: linear-gradient(rgba(30, 58, 138, 0.7), rgba(30, 58, 138, 0.8)), url('assets/cover-bg.jpg');">
+    <section id="cover-modal" class="fixed inset-0 z-[100] bg-dark flex flex-col items-center justify-center text-center p-6 h-screen w-full transition-transform duration-1000 ease-in-out bg-cover bg-center" style="background-image: linear-gradient(rgba(30, 58, 138, 0.7), rgba(30, 58, 138, 0.8)), url('https://plus.unsplash.com/premium_photo-1669868115421-dd7e3a2ec30d?q=80&w=688&auto=format&fit=crop');">
         
         <div class="text-white space-y-6 max-w-lg w-full" data-aos="fade-down" data-aos-duration="1500">
             <h3 class="font-serif text-xl tracking-[0.2em] uppercase text-secondary">The Wedding Of</h3>
@@ -168,6 +172,7 @@
             </div>
 
             <div class="mt-10 animate-bounce" data-aos="fade-up" data-aos-delay="1000">
+                <!-- Tambahkan pointer-events-auto agar tombol bisa diklik meski ada canvas di atasnya -->
                 <button onclick="openInvitation()" class="group bg-secondary hover:bg-yellow-600 text-white font-serif px-8 py-3 rounded-full shadow-[0_0_20px_rgba(212,175,55,0.5)] transition-all duration-300 transform hover:scale-105 flex items-center gap-3 mx-auto border border-white/20 pointer-events-auto">
                     <i class="fas fa-envelope-open group-hover:rotate-12 transition-transform"></i> Buka Undangan
                 </button>
@@ -179,7 +184,7 @@
     <main id="main-content" class="relative hidden bg-soft-pattern opacity-0 transition-opacity duration-1000">
         
         <!-- HERO UTAMA -->
-        <section class="min-h-screen flex flex-col items-center justify-center text-center p-6 relative bg-cover bg-center bg-fixed" style="background-image: url('assets/cover-bg.jpg');">
+        <section class="min-h-screen flex flex-col items-center justify-center text-center p-6 relative bg-cover bg-center bg-fixed" style="background-image: url('https://plus.unsplash.com/premium_photo-1669868115421-dd7e3a2ec30d?q=80&w=688&auto=format&fit=crop');">
             <!-- Overlay Gradient Blue -->
             <div class="absolute inset-0 bg-gradient-to-b from-primary/60 via-primary/40 to-blue-50"></div>
             
@@ -222,7 +227,7 @@
         <!-- SALAM PEMBUKA -->
         <section class="py-16 px-6 text-center bg-blue-50">
             <div class="max-w-3xl mx-auto" data-aos="fade-up" data-aos-duration="1500">
-                <img src="assets/basmala.svg" alt="Bismillah" class="h-12 mx-auto mb-8 opacity-80 filter invert-[.25] sepia-[.5] saturate-[30] hue-rotate-[190deg]">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Basmala.svg" alt="Bismillah" class="h-12 mx-auto mb-8 opacity-80 filter invert-[.25] sepia-[.5] saturate-[30] hue-rotate-[190deg]">
                 
                 <p class="font-serif text-xl text-primary mb-6 italic font-semibold" data-aos="fade-up" data-aos-delay="200">Assalamu’alaikum Warahmatullahi Wabarakatuh</p>
                 
@@ -245,7 +250,7 @@
                     <div class="order-1 flex flex-col items-center" data-aos="fade-right" data-aos-duration="1500">
                          <div class="w-48 h-48 md:w-56 md:h-56 mb-6 relative group">
                             <div class="absolute inset-0 rounded-full border-4 border-secondary p-1 shadow-xl transition-transform duration-500 group-hover:scale-105">
-                                <img src="assets/groom.jpg" alt="Malik" class="w-full h-full object-cover rounded-full">
+                                <img src="https://thumbs.dreamstime.com/b/attractive-young-man-groom-tuxedo-necktie-holding-delicate-flowers-bouquet-white-background-watercolor-design-370106727.jpg" alt="Malik" class="w-full h-full object-cover rounded-full">
                             </div>
                         </div>
                         <h2 class="font-script text-5xl text-primary mb-3">Malik Faza</h2>
@@ -264,7 +269,7 @@
                     <div class="order-3 flex flex-col items-center" data-aos="fade-left" data-aos-duration="1500">
                         <div class="w-48 h-48 md:w-56 md:h-56 mb-6 relative group">
                             <div class="absolute inset-0 rounded-full border-4 border-secondary p-1 shadow-xl transition-transform duration-500 group-hover:scale-105">
-                                <img src="assets/bride.jpg" alt="Annisa" class="w-full h-full object-cover rounded-full">
+                                <img src="https://img.freepik.com/premium-photo/hijab-cartoon-smile-sweet-watercolor-painting-muslim-woman_750792-65763.jpg" alt="Annisa" class="w-full h-full object-cover rounded-full">
                             </div>
                         </div>
                         <h2 class="font-script text-5xl text-primary mb-3">Annisa Sholiha</h2>
@@ -351,7 +356,7 @@
                         <div class="absolute right-0 top-0 w-32 h-32 bg-white opacity-10 rounded-full -mr-10 -mt-10"></div>
                         <div class="text-center sm:text-left z-10">
                             <div class="flex items-center justify-center sm:justify-start gap-2 mb-2">
-                                <img src="assets/dana.svg" alt="DANA" class="h-8 bg-white rounded px-2 py-1">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" alt="DANA" class="h-8 bg-white rounded px-2 py-1">
                             </div>
                             <p class="font-mono text-xl tracking-wider font-bold">0851 6114 1114</p>
                             <p class="text-sm opacity-90">a.n Malik Faza</p>
@@ -379,12 +384,12 @@
             </div>
         </section>
 
-        <!-- RSVP & UCAPAN (MODE WHATSAPP) -->
+        <!-- RSVP & UCAPAN (DUAL MODE) -->
         <section class="py-20 px-6 bg-blue-50 mb-20">
             <div class="max-w-xl mx-auto" data-aos="zoom-in-up" data-aos-duration="1500">
                 <div class="bg-white p-8 rounded-3xl shadow-xl border border-blue-100 text-center">
-                    <h2 class="font-serif text-3xl text-primary mb-2">Konfirmasi & Ucapan</h2>
-                    <p class="text-sm text-gray-500 mb-8">Mohon isi form di bawah ini untuk konfirmasi kehadiran dan mengirimkan doa restu melalui WhatsApp.</p>
+                    <h2 class="font-serif text-3xl text-primary mb-2">Konfirmasi Kehadiran</h2>
+                    <p class="text-sm text-gray-500 mb-8">Mohon isi form di bawah ini untuk konfirmasi kehadiran atau mengirim ucapan.</p>
                     
                     <form class="space-y-5 text-left">
                         <div>
@@ -414,20 +419,31 @@
                             <textarea id="rsvp-message" placeholder="Tuliskan ucapan selamat..." rows="3" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-gray-50 transition"></textarea>
                         </div>
                         
-                        <!-- Satu Tombol Aksi (WA Saja) -->
-                        <div class="pt-2">
-                            <button type="button" onclick="sendToWhatsApp()" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-4 rounded-xl transition shadow-lg flex items-center justify-center gap-2 text-sm transform hover:scale-105">
-                                <i class="fab fa-whatsapp text-xl"></i> Kirim Konfirmasi & Doa via WhatsApp
+                        <!-- Dua Tombol Aksi -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                             <button type="button" onclick="submitToWeb()" class="w-full bg-primary hover:bg-blue-900 text-white font-bold py-3 px-4 rounded-xl transition shadow-lg flex items-center justify-center gap-2 text-sm transform hover:scale-105">
+                                <i class="fas fa-paper-plane"></i> Kirim ke Website
+                            </button>
+                            <button type="button" onclick="sendToWhatsApp()" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-xl transition shadow-lg flex items-center justify-center gap-2 text-sm transform hover:scale-105">
+                                <i class="fab fa-whatsapp text-lg"></i> Konfirmasi via WA
                             </button>
                         </div>
                     </form>
+
+                    <!-- DAFTAR UCAPAN -->
+                    <div id="comments-section" class="mt-12 text-left hidden">
+                        <h3 class="font-serif text-xl text-primary mb-4 border-b pb-2">Ucapan & Doa Masuk</h3>
+                        <div id="comments-list" class="space-y-4 comments-scroll pr-2">
+                            <!-- Komentar akan muncul di sini -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- FOOTER -->
         <footer class="bg-dark text-white text-center py-10 relative overflow-hidden" data-aos="fade-up" data-aos-duration="1500">
-            <div class="absolute inset-0 bg-[url('assets/pattern-stardust.png')] opacity-30"></div>
+            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-30"></div>
             <div class="relative z-10">
                 <h2 class="font-script text-5xl mb-4 text-secondary">Malik & Annisa</h2>
                 <p class="text-sm font-light opacity-80 px-6 leading-relaxed max-w-lg mx-auto">
@@ -450,12 +466,20 @@
     <script>
         // --- 1. SETUP GUEST NAME ---
         document.addEventListener('DOMContentLoaded', () => {
-            AOS.init({ once: true, duration: 1200, offset: 50 });
+            // Init AOS tapi jangan refresh dulu
+            AOS.init({ 
+                once: true, 
+                duration: 1200, // Global duration slower
+                offset: 50 
+            });
 
             const urlParams = new URLSearchParams(window.location.search);
             const guestName = urlParams.get('kpd') || urlParams.get('to') || "Tamu Undangan";
             document.getElementById('guest-name').textContent = guestName;
             
+            // Load komentar yang ada
+            loadComments();
+
             // Init Canvas (Animation)
             initCanvas();
         });
@@ -474,24 +498,32 @@
             // Slide up cover
             coverModal.style.transform = 'translateY(-100%)';
             
-            // Tampilkan Main Content
+            // Tampilkan Main Content dengan Fade In Class
             mainContent.classList.remove('hidden');
+            // Sedikit delay agar transisi opacity terlihat halus
             setTimeout(() => {
                 mainContent.classList.remove('opacity-0');
                 mainContent.classList.add('fade-in-active');
             }, 100);
             
-            setTimeout(() => { AOS.refresh(); }, 500);
+            // PENTING: Refresh AOS agar animasi fade-in bekerja setelah elemen terlihat
+            setTimeout(() => {
+                AOS.refresh();
+            }, 500);
 
+            // AUTO PLAY MUSIC HERE
             playMusic();
         }
 
         function playMusic() {
+            // Karena fungsi ini dipanggil oleh "click" user pada tombol Buka Undangan,
+            // Browser akan mengizinkan auto-play berjalan.
             music.play().then(() => {
                 isPlaying = true;
                 musicBtn.classList.remove('hidden');
                 musicBtn.querySelector('i').classList.add('spin-slow');
-            }).catch(() => {
+            }).catch((error) => {
+                console.log("Audio playback failed (mungkin file music.mp3 tidak ditemukan atau browser memblokir): ", error);
                 musicBtn.classList.remove('hidden');
                 musicBtn.querySelector('i').classList.remove('spin-slow');
             });
@@ -508,11 +540,13 @@
             isPlaying = !isPlaying;
         });
 
-        // --- 3. COUNTDOWN TIMER ---
+        // --- 3. COUNTDOWN TIMER (10 MARET 2026) ---
         const weddingDate = new Date("Mar 10, 2026 08:00:00").getTime();
+
         const timer = setInterval(function() {
             const now = new Date().getTime();
             const distance = weddingDate - now;
+
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -539,7 +573,8 @@
             });
         }
 
-        // --- 5. RSVP LOGIC (WHATSAPP ONLY) ---
+        // --- 5. RSVP LOGIC ---
+        
         function getRSVPValues() {
             return {
                 name: document.getElementById('rsvp-name').value,
@@ -549,6 +584,7 @@
             };
         }
 
+        // Opsi 1: Kirim ke WA
         function sendToWhatsApp() {
             const { name, status, pax, msg } = getRSVPValues();
             if(!name) { alert("Mohon isi nama Anda"); return; }
@@ -557,6 +593,88 @@
             const text = `Halo Malik & Annisa,%0A%0ASaya ${name} ingin konfirmasi kehadiran:%0A• Status: ${status}%0A• Jumlah: ${pax} Orang%0A%0AUcapan: ${msg}%0A%0ATerima kasih.`;
             
             window.open(`https://wa.me/${phoneNumber}?text=${text}`, '_blank');
+        }
+
+        // Opsi 2: Kirim ke Web (Simulasi LocalStorage)
+        function submitToWeb() {
+            const { name, status, pax, msg } = getRSVPValues();
+            if(!name) { alert("Mohon isi nama Anda"); return; }
+            if(!msg) { alert("Mohon isi ucapan Anda"); return; }
+
+            // Simulasi simpan data
+            const newComment = {
+                name: name,
+                status: status,
+                msg: msg,
+                date: new Date().toLocaleDateString('id-ID'),
+                color: generateColor(name) // Warna avatar random
+            };
+
+            // Simpan ke LocalStorage agar tidak hilang saat refresh (untuk demo)
+            let comments = JSON.parse(localStorage.getItem('weddingComments')) || [];
+            comments.unshift(newComment);
+            localStorage.setItem('weddingComments', JSON.stringify(comments));
+
+            // Reset Form & Reload List
+            document.getElementById('rsvp-name').value = '';
+            document.getElementById('rsvp-message').value = '';
+            loadComments();
+            
+            // Show toast
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = "Ucapan berhasil dikirim!";
+            toast.style.opacity = '1';
+            setTimeout(() => { toast.style.opacity = '0'; }, 2000);
+        }
+
+        function loadComments() {
+            const commentsList = document.getElementById('comments-list');
+            const commentsSection = document.getElementById('comments-section');
+            let comments = JSON.parse(localStorage.getItem('weddingComments')) || [];
+
+            // Data Dummy jika kosong
+            if (comments.length === 0) {
+                comments = [
+                    { name: "Admin", status: "Hadir", msg: "Selamat menempuh hidup baru!", date: "Sekarang", color: "bg-primary" }
+                ];
+            }
+
+            commentsSection.classList.remove('hidden');
+            commentsList.innerHTML = '';
+
+            comments.forEach(c => {
+                const statusBadge = c.status === 'Hadir' 
+                    ? '<span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full border border-green-200"><i class="fas fa-check-circle mr-1"></i>Hadir</span>' 
+                    : '<span class="text-[10px] bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full border border-gray-200"><i class="fas fa-times-circle mr-1"></i>Tidak Hadir</span>';
+                
+                const html = `
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 shadow-sm flex gap-3 animate-fade-in" data-aos="fade-up">
+                        <div class="flex-shrink-0 w-10 h-10 ${c.color || 'bg-blue-500'} rounded-full flex items-center justify-center text-white font-bold text-lg">
+                            ${c.name.charAt(0).toUpperCase()}
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="font-bold text-dark text-sm">${c.name}</h4>
+                                    <div class="mt-1">${statusBadge}</div>
+                                </div>
+                                <span class="text-[10px] text-gray-400">${c.date}</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2 leading-relaxed">${c.msg}</p>
+                        </div>
+                    </div>
+                `;
+                commentsList.innerHTML += html;
+            });
+        }
+        
+        function generateColor(str) {
+            const colors = ['bg-red-500', 'bg-blue-500', 'bg-green-500', 'bg-yellow-500', 'bg-purple-500', 'bg-pink-500'];
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                hash = str.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            return colors[Math.abs(hash) % colors.length];
         }
 
         // --- 6. CANVAS ANIMATION LOGIC (FALLING PETALS) ---
@@ -570,25 +688,27 @@
             canvas.height = height;
 
             const petals = [];
-            const petalCount = 40; 
+            const petalCount = 40; // Jumlah kelopak yang muncul
 
             class Petal {
                 constructor() {
                     this.x = Math.random() * width;
-                    this.y = Math.random() * height - height; 
-                    this.size = Math.random() * 10 + 5; 
-                    this.speed = Math.random() * 1 + 0.5; 
-                    this.angle = Math.random() * 360; 
-                    this.spin = Math.random() < 0.5 ? 1 : -1; 
+                    this.y = Math.random() * height - height; // Mulai dari atas layar
+                    this.size = Math.random() * 10 + 5; // Ukuran 5-15px
+                    this.speed = Math.random() * 1 + 0.5; // Kecepatan jatuh
+                    this.angle = Math.random() * 360; // Sudut awal
+                    this.spin = Math.random() < 0.5 ? 1 : -1; // Arah putar
+                    // Warna acak nuansa pink/putih/biru muda
                     this.color = `rgba(255, ${Math.floor(Math.random() * 50) + 200}, ${Math.floor(Math.random() * 50) + 200}, ${Math.random() * 0.5 + 0.3})`;
-                    this.sway = Math.random() * 2; 
+                    this.sway = Math.random() * 2; // Goyangan
                 }
 
                 update() {
                     this.y += this.speed;
                     this.angle += this.spin;
-                    this.x += Math.sin(this.y * 0.01) * this.sway; 
+                    this.x += Math.sin(this.y * 0.01) * this.sway; // Gerakan melayang kiri-kanan
 
+                    // Jika keluar layar bawah, reset ke atas
                     if (this.y > height) {
                         this.y = -20;
                         this.x = Math.random() * width;
@@ -601,27 +721,30 @@
                     ctx.rotate(this.angle * Math.PI / 180);
                     ctx.fillStyle = this.color;
                     ctx.beginPath();
+                    // Menggambar bentuk oval sederhana menyerupai kelopak
                     ctx.ellipse(0, 0, this.size, this.size / 2, 0, 0, Math.PI * 2);
                     ctx.fill();
                     ctx.restore();
                 }
             }
 
+            // Buat kelopak bunga
             for (let i = 0; i < petalCount; i++) {
                 petals.push(new Petal());
             }
 
             function animate() {
-                ctx.clearRect(0, 0, width, height); 
+                ctx.clearRect(0, 0, width, height); // Hapus frame sebelumnya
                 petals.forEach(petal => {
                     petal.update();
                     petal.draw();
                 });
-                requestAnimationFrame(animate); 
+                requestAnimationFrame(animate); // Loop animasi
             }
 
             animate();
 
+            // Handle resize layar
             window.addEventListener('resize', () => {
                 width = window.innerWidth;
                 height = window.innerHeight;
@@ -629,7 +752,7 @@
                 canvas.height = height;
             });
         }
+
     </script>
 </body>
 </html>
-
