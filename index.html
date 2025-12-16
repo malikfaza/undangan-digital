@@ -2,7 +2,7 @@
 <html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>The Wedding of Malik & Annisa</title>
     
     <!-- Meta untuk SEO & Share -->
@@ -123,9 +123,23 @@
         .fade-in-active {
             animation: fadeInContent 1.5s ease-out forwards;
         }
+
+        /* --- CANVAS STYLE (PENTING) --- */
+        #flower-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Klik tembus ke elemen di bawahnya */
+            z-index: 9999; /* Pastikan di paling atas */
+        }
     </style>
 </head>
 <body class="font-sans text-dark bg-blue-50 antialiased no-scroll">
+
+    <!-- ELEMENT CANVAS UNTUK ANIMASI BUNGA -->
+    <canvas id="flower-canvas"></canvas>
 
     <!-- Audio Background -->
     <audio id="bg-music" loop>
@@ -158,7 +172,8 @@
             </div>
 
             <div class="mt-10 animate-bounce" data-aos="fade-up" data-aos-delay="1000">
-                <button onclick="openInvitation()" class="group bg-secondary hover:bg-yellow-600 text-white font-serif px-8 py-3 rounded-full shadow-[0_0_20px_rgba(212,175,55,0.5)] transition-all duration-300 transform hover:scale-105 flex items-center gap-3 mx-auto border border-white/20">
+                <!-- Tambahkan pointer-events-auto agar tombol bisa diklik meski ada canvas di atasnya (fallback safety) -->
+                <button onclick="openInvitation()" class="group bg-secondary hover:bg-yellow-600 text-white font-serif px-8 py-3 rounded-full shadow-[0_0_20px_rgba(212,175,55,0.5)] transition-all duration-300 transform hover:scale-105 flex items-center gap-3 mx-auto border border-white/20 pointer-events-auto">
                     <i class="fas fa-envelope-open group-hover:rotate-12 transition-transform"></i> Buka Undangan
                 </button>
             </div>
@@ -464,6 +479,9 @@
             
             // Load komentar yang ada
             loadComments();
+
+            // Init Canvas (Animation)
+            initCanvas();
         });
 
         // --- 2. OPEN INVITATION & ANIMATION FIX ---
@@ -655,7 +673,82 @@
             return colors[Math.abs(hash) % colors.length];
         }
 
+        // --- 6. CANVAS ANIMATION LOGIC (FALLING PETALS) ---
+        function initCanvas() {
+            const canvas = document.getElementById('flower-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            let width = window.innerWidth;
+            let height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+
+            const petals = [];
+            const petalCount = 40; // Jumlah kelopak yang muncul
+
+            class Petal {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height - height; // Mulai dari atas layar
+                    this.size = Math.random() * 10 + 5; // Ukuran 5-15px
+                    this.speed = Math.random() * 1 + 0.5; // Kecepatan jatuh
+                    this.angle = Math.random() * 360; // Sudut awal
+                    this.spin = Math.random() < 0.5 ? 1 : -1; // Arah putar
+                    // Warna acak nuansa pink/putih/biru muda
+                    this.color = `rgba(255, ${Math.floor(Math.random() * 50) + 200}, ${Math.floor(Math.random() * 50) + 200}, ${Math.random() * 0.5 + 0.3})`;
+                    this.sway = Math.random() * 2; // Goyangan
+                }
+
+                update() {
+                    this.y += this.speed;
+                    this.angle += this.spin;
+                    this.x += Math.sin(this.y * 0.01) * this.sway; // Gerakan melayang kiri-kanan
+
+                    // Jika keluar layar bawah, reset ke atas
+                    if (this.y > height) {
+                        this.y = -20;
+                        this.x = Math.random() * width;
+                    }
+                }
+
+                draw() {
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.angle * Math.PI / 180);
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    // Menggambar bentuk oval sederhana menyerupai kelopak
+                    ctx.ellipse(0, 0, this.size, this.size / 2, 0, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+
+            // Buat kelopak bunga
+            for (let i = 0; i < petalCount; i++) {
+                petals.push(new Petal());
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height); // Hapus frame sebelumnya
+                petals.forEach(petal => {
+                    petal.update();
+                    petal.draw();
+                });
+                requestAnimationFrame(animate); // Loop animasi
+            }
+
+            animate();
+
+            // Handle resize layar
+            window.addEventListener('resize', () => {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+            });
+        }
+
     </script>
 </body>
-
 </html>
